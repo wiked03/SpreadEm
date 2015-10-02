@@ -85,15 +85,25 @@ angular.module('spreadem', ['ionic', 'firebase', 'spreadem.controllers', 'spread
 		}
 	})
 
-  .state('app.games', {
-    url: '/games/:week',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/games.html',
-        controller: 'GamesCtrl'
-      }
-    }
-  })
+	.state('app.games', {
+		url: '/games/:week',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/games.html',
+				controller: 'GamesCtrl'
+			}
+		}
+	})
+  
+    .state('app.pick', {
+		url: '/pick/:key/:week',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/pick.html',
+				controller: 'PickCtrl'
+			}
+		}
+	})
 
 	.state('app.leaderboard', {
 		url: '/leaderboard',

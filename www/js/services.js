@@ -58,10 +58,14 @@ angular.module('spreadem.services', ['firebase'])
     all: function (week) {
       var gamesRef = new Firebase(firebaseUrl+'/games/week'+week);
       var games = $firebaseArray(gamesRef);
-      games.sort(function(a,b) {
-        return a.date < b.date
-      })
       return games;
+    },
+	get: function (week, key) {
+      var ref = new Firebase(firebaseUrl+"/games/week"+week+"/"+key);
+      ref.on("value", function(snapshot) {
+			var game = snapshot.val();
+			return game; 
+	  })
     }
   }
 });

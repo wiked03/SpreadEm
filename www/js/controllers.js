@@ -90,9 +90,24 @@ angular.module('spreadem.controllers', [])
 
 })
 
-.controller('GamesCtrl', function($scope, $state, Games) {
-  $scope.games = Games.all($state.params.week);
+.controller('GamesCtrl', function($scope, $stateParams, $state, Games) {
+  $scope.week = $stateParams.week;
+  $scope.games = Games.all($stateParams.week);
+  
+  $scope.getGame = function (key, week) {
+	  console.log(key);
+    $state.go('app.pick', {
+	  key : key,
+	  week : week
+    });
+  }
 
+})
+
+.controller('PickCtrl', function($scope, $stateParams, Games) {
+	$scope.week = $stateParams.week;
+	
+	$scope.info = Games.get($stateParams.week, $stateParams.key);
 })
 
 .controller('MyPicksCtrl', function($scope, $stateParams) {
