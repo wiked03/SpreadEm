@@ -1,0 +1,9 @@
+<ion-view view-title="Games">
+  <ion-content>
+    <ion-list >
+      <ion-item class="item-icon-right" ng-repeat="game in games" type="item-text-wrap" >
+        <h2>{{game.away}} @ {{game.home}} {{game.odds}}</h2>
+        <h4>{{game.date}}</h4>
+      </ion-item>
+  </ion-content>
+</ion-view>

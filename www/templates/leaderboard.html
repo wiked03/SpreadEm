@@ -1,0 +1,7 @@
+<ion-view view-title="Leaderboard">
+  <ion-content>
+        <ion-item class="item-icon-left" ng-repeat="user in users" type="item-text-wrap">
+			<h2>{{user.displayName}}  {{user.score}}</h2>
+        </ion-item>
+  </ion-content>
+</ion-view>
