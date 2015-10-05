@@ -1,5 +1,8 @@
 <ion-view view-title="Pick a Winner!">
   <ion-content>
-			{{info}}
+	<ion-list>
+		<ion-radio ng-value="game.away" ng-model="choice">{{game.away}}</ion-radio>
+		<ion-radio ng-value="game.home" ng-model="choice">{{game.home}}   {{game.odds}}</ion-radio>
+		<button class="button button-block button-positive" ng-click="savePick(game.home, choice)">Save</button>
   </ion-content>
 </ion-view>

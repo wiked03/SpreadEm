@@ -49,15 +49,17 @@ angular.module('spreadem.controllers', [])
                 email: user.email,
                 password: user.pwdForLogin
             }).then(function (authData) {
-                console.log("Logged in as:" + authData.uid);
+				$rootScope.uid = authData.uid;
+                console.log("Logged in as:" + $rootScope.uid);
                 ref.child("users").child(authData.uid).once('value', function (snapshot) {
                     var val = snapshot.val();
                     // To Update AngularJS $scope either use $apply or $timeout
                     $scope.$apply(function () {
                         $rootScope.displayName = val;
-                    });
+					});
                 });
                 $ionicLoading.hide();
+				
                 $state.go('app.leaderboard');
             }).catch(function (error) {
                 alert("Authentication failed:" + error.message);
@@ -81,7 +83,9 @@ angular.module('spreadem.controllers', [])
 
 .controller('WeeksCtrl', function($scope, $state, Weeks) {
   $scope.weeks = Weeks.all();
-
+  
+  $scope.currentWeek = Weeks.getCurrentWeek();
+  
   $scope.getWeek = function (week) {
     $state.go('app.games', {
       week: week
@@ -104,10 +108,21 @@ angular.module('spreadem.controllers', [])
 
 })
 
-.controller('PickCtrl', function($scope, $stateParams, Games) {
+.controller('PickCtrl', function($scope, $state, $stateParams, Games, Picks, $ionicLoading) {
 	$scope.week = $stateParams.week;
+	$scope.choice = "";
+	$scope.game = Games.getGame($stateParams.week, $stateParams.key);
 	
-	$scope.info = Games.get($stateParams.week, $stateParams.key);
+	$scope.savePick = function (key, choice) {
+		$ionicLoading.show({
+			template: 'Saving...'
+        });
+		Picks.savePickForUser(key, choice, $scope.week);
+		$ionicLoading.hide();
+		$state.go('app.games', {
+		  week: $scope.week
+		});	
+	}
 })
 
 .controller('MyPicksCtrl', function($scope, $stateParams) {
