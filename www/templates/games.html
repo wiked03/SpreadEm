@@ -2,8 +2,14 @@
   <ion-content>
     <ion-list >
       <ion-item class="item-icon-right" ng-repeat="game in games" type="item-text-wrap" ng-click="getGame(game.home, week)">
-        <h2>{{game.away}} @ {{game.home}} {{game.odds}}</h2>
-        <h4>{{game.date}}</h4>
+		<div class="row">
+			<div class="col">{{game.date}}</div>
+		</div>
+		<div class="row">
+			<div class="col">{{game.away}} @</div>
+			<div class="col">{{game.home}}</div>
+			<div class="col">Line: {{game.odds}}</div>
+		</div>
       </ion-item>
   </ion-content>
 </ion-view>

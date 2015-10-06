@@ -28,11 +28,6 @@ angular.module('spreadem.services', ['firebase'])
 .factory('Weeks', function ($firebase) {
 
 	var weeks = [
-		{"id": 1, "startDate" : new Date("2015-09-01").getTime(), "endDate": new Date("2015-09-08").getTime()},
-		{"id": 2, "startDate" : new Date("2015-09-08").getTime(), "endDate": new Date("2015-09-15").getTime()},
-		{"id": 3, "startDate" : new Date("2015-09-15").getTime(), "endDate": new Date("2015-09-22").getTime()},
-		{"id": 4, "startDate" : new Date("2015-09-22").getTime(), "endDate": new Date("2015-09-29").getTime()},
-		{"id": 5, "startDate" : new Date("2015-09-29").getTime(), "endDate": new Date("2015-10-06").getTime()},
 		{"id": 6, "startDate" : new Date("2015-10-06").getTime(), "endDate": new Date("2015-10-13").getTime()},
 		{"id": 7, "startDate" : new Date("2015-10-13").getTime(), "endDate": new Date("2015-10-20").getTime()},
 		{"id": 8, "startDate" : new Date("2015-10-20").getTime(), "endDate": new Date("2015-10-27").getTime()},
@@ -45,11 +40,6 @@ angular.module('spreadem.services', ['firebase'])
 	];
 	
 	var displayWeeks = [
-		{"id": 1, "startDate" : "Sept 1, 2015", "endDate": "Sept 7, 2015"},
-		{"id": 2, "startDate" : "Sept 8, 2015", "endDate": "Sept 14, 2015"},
-		{"id": 3, "startDate" : "Sept 15, 2015", "endDate": "Sept 21, 2015"},
-		{"id": 4, "startDate" : "Sept 22, 2015", "endDate": "Sept 28, 2015"},
-		{"id": 5, "startDate" : "Sept 29, 2015", "endDate": "Oct 5, 2015"},
 		{"id": 6, "startDate" : "Oct 6, 2015", "endDate": "Oct 12, 2015"},
 		{"id": 7, "startDate" : "Oct 13, 2015", "endDate": "Oct 19, 2015"},
 		{"id": 8, "startDate" : "Oct 20, 2015", "endDate": "Oct 26, 2015"},
