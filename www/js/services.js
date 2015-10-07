@@ -1,13 +1,11 @@
 angular.module('spreadem.services', ['firebase'])
-    .factory("Auth", ["$firebaseAuth", "$rootScope",
-    function ($firebaseAuth, $rootScope) {
-            var ref = new Firebase(firebaseUrl);
-            return $firebaseAuth(ref);
+
+.factory("Auth", ["$firebaseAuth", "$rootScope", function ($firebaseAuth, $rootScope) {
+	var ref = new Firebase(firebaseUrl);
+	return $firebaseAuth(ref);
 }])
 
 .factory('Leaderboard', function ($firebase) {
-
-    var selectedRoomId;
 
     var ref = new Firebase(firebaseUrl+"/users");
     var users = [];
@@ -70,7 +68,6 @@ angular.module('spreadem.services', ['firebase'])
 
 .factory('Games', function ($firebase, $firebaseArray) {
 
-	var games = [];
 	var game;
 
 	return {
@@ -85,24 +82,23 @@ angular.module('spreadem.services', ['firebase'])
 				game = data.val();
 			});
 			return game;
-    }
-  }
+		}
+	}
 })
 
 .factory('Picks', function ($firebase, $rootScope, $firebaseArray) {
 
 	return {
 		savePickForUser: function (key, choice, week) {
-      var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/"+key);
+			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/"+key);
 			pickRef.update({
-        'pick': choice
+				'pick': choice
 			});
 		},
-    getUserPicks: function (week) {
-      var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week);
-      var picks = $firebaseArray(pickRef);
-      return picks;
-
-    }
-  }
+		getUserPicks: function (week) {
+			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week);
+			var picks = $firebaseArray(pickRef);
+			return picks;
+		}
+	}
 });

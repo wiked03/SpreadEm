@@ -94,9 +94,35 @@ angular.module('spreadem.controllers', [])
 
 })
 
-.controller('GamesCtrl', function($scope, $stateParams, $state, Games) {
-  $scope.week = $stateParams.week;
-  $scope.games = Games.all($stateParams.week);
+.controller('GamesCtrl', function($scope, $stateParams, $state, Games, Picks) {
+	$scope.week = $stateParams.week;
+	$scope.games = Games.all($stateParams.week);
+	$scope.picks = Picks.getUserPicks($scope.week);
+  
+//	$scope.$on('$ionicView.enter', function () {
+//		var i;
+//		for(i = 0; i < $scope.picks.length; i++) {
+//			var j;
+//			for(j = 0; j < $scope.games.length; j++) {
+//				if ($scope.picks[i].$id === $scope.games[j].$id) {
+//					$scope.games[j].selected = true;
+//					break;
+//				}
+//				console.log($scope.games[j]);				
+//			}
+//		}
+//  })
+  
+    $scope.isPicked = function (key) {
+		var i;
+		for(i = 0; i < $scope.picks.length; i++) {
+			console.log($scope.picks[i].$id + " " + key);
+			if ($scope.picks[i].$id === key) {
+				return true;
+			}
+		}
+		return false;
+	}
 
   $scope.getGame = function (key, week) {
 	  console.log(key);
@@ -110,45 +136,45 @@ angular.module('spreadem.controllers', [])
 
 .controller('PickCtrl', function($scope, $state, $stateParams, Games, Picks, $ionicPopup) {
 	$scope.week = $stateParams.week;
-	$scope.choice = "";
+	$scope.choice;
 	$scope.game = Games.getGame($scope.week, $stateParams.key);
-  $scope.picks = Picks.getUserPicks($scope.week);
+    $scope.picks = Picks.getUserPicks($scope.week);
 
-  showError = function(msg) {
-    var alertPopup = $ionicPopup.alert({
-      title: 'Error',
-      template: msg
-    });
-    alertPopup.then(function(res) {
-      $state.go('app.games', {
-        week: $scope.week
-      });
-    });
-  };
+	showError = function(msg) {
+		var alertPopup = $ionicPopup.alert({
+			title: 'Error',
+			template: msg
+		});
+		alertPopup.then(function(res) {
+			$state.go('app.games', {
+				week: $scope.week
+			});
+		});
+	}
 
-  $scope.showConfirm = function(key, choice) {
-    var confirmPopup = $ionicPopup.confirm({
-      title: 'Confirmation',
-      template: 'Pick ' + $scope.choice + '?'
-    });
-    confirmPopup.then(function(res) {
-      if(res) {
-        console.log($scope.picks);
-        if ($scope.picks.length == 5) {
-          showError("Sorry, you have already picked 5 games!");
-        }
-        if ($scope.game.date <= new Date().getTime()) {
-          showError("Sorry, that game has already started!");
-        }
-        Picks.savePickForUser(key, choice, $scope.week);
-
-      } else {
-        $state.go('app.games', {
-          week: $scope.week
-        });
-      }
-    });
-  };
+	$scope.showConfirm = function() {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Confirmation',
+			template: 'Pick ' + $scope.choice + '?'
+		});
+		confirmPopup.then(function(res) {
+			console.log($scope.choice);
+			if(res) {
+				console.log($scope.picks);
+				if ($scope.picks.length == 5) {
+					showError("Sorry, you have already picked 5 games!");
+				}
+				if ($scope.game.date <= new Date().toISOString()) {
+					showError("Sorry, that game has already started!");
+				}
+				Picks.savePickForUser($scope.game.home, $scope.choice, $scope.week);
+			} else {
+				$state.go('app.games', {
+					week: $scope.week
+				});
+			}
+		});
+	}
 
 })
 

@@ -1,8 +1,8 @@
 <ion-view view-title="Pick a Winner!">
   <ion-content>
 	<ion-list>
-		<ion-radio ng-value="game.away" ng-model="choice">{{game.away}}</ion-radio>
-		<ion-radio ng-value="game.home" ng-model="choice">{{game.home}}   {{game.odds}}</ion-radio>
-		<button class="button button-block button-positive" ng-click="showConfirm(game.home, choice)">Save</button>
+		<ion-radio ng-value='game.away' ng-model='$parent.choice'>{{game.away}}</ion-radio>
+		<ion-radio ng-value='game.home' ng-model='$parent.choice'>{{game.home}}   {{game.odds}}</ion-radio>
+		<button class="button button-block button-positive" ng-click="showConfirm()">Save</button>
   </ion-content>
 </ion-view>

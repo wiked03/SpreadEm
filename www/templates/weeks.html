@@ -1,7 +1,7 @@
 <ion-view view-title="Weeks">
   <ion-content>
     <ion-list>
-      <ion-item class="item-icon-right" ng-repeat="week in weeks" ng-class="{'selected':week.id == currentWeek}" ng-click="getWeek(week.id)">
+      <ion-item class="item-icon-right" ng-repeat="week in weeks" ng-click="getWeek(week.id)">
 		<i class="icon ion-ios-arrow-right"></i>
         <h2>Week {{week.id}} : {{week.startDate}} - {{week.endDate}}</h2>
       </ion-item>

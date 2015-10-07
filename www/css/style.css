@@ -1,6 +1,5 @@
 /* Empty. Add your own CSS if you like */
 .selected {
-    background-color:blue;
-    color:white;
+    background-color:#99CCFF;
     font-weight:bold;
 }
