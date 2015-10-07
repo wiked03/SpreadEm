@@ -59,7 +59,7 @@ angular.module('spreadem.controllers', [])
 					});
                 });
                 $ionicLoading.hide();
-				
+
                 $state.go('app.leaderboard');
             }).catch(function (error) {
                 alert("Authentication failed:" + error.message);
@@ -83,9 +83,9 @@ angular.module('spreadem.controllers', [])
 
 .controller('WeeksCtrl', function($scope, $state, Weeks) {
   $scope.weeks = Weeks.all();
-  
+
   $scope.currentWeek = Weeks.getCurrentWeek();
-  
+
   $scope.getWeek = function (week) {
     $state.go('app.games', {
       week: week
@@ -97,7 +97,7 @@ angular.module('spreadem.controllers', [])
 .controller('GamesCtrl', function($scope, $stateParams, $state, Games) {
   $scope.week = $stateParams.week;
   $scope.games = Games.all($stateParams.week);
-  
+
   $scope.getGame = function (key, week) {
 	  console.log(key);
     $state.go('app.pick', {
@@ -108,21 +108,48 @@ angular.module('spreadem.controllers', [])
 
 })
 
-.controller('PickCtrl', function($scope, $state, $stateParams, Games, Picks, $ionicLoading) {
+.controller('PickCtrl', function($scope, $state, $stateParams, Games, Picks, $ionicPopup) {
 	$scope.week = $stateParams.week;
 	$scope.choice = "";
-	$scope.game = Games.getGame($stateParams.week, $stateParams.key);
-	
-	$scope.savePick = function (key, choice) {
-		$ionicLoading.show({
-			template: 'Saving...'
+	$scope.game = Games.getGame($scope.week, $stateParams.key);
+  $scope.picks = Picks.getUserPicks($scope.week);
+
+  showError = function(msg) {
+    var alertPopup = $ionicPopup.alert({
+      title: 'Error',
+      template: msg
+    });
+    alertPopup.then(function(res) {
+      $state.go('app.games', {
+        week: $scope.week
+      });
+    });
+  };
+
+  $scope.showConfirm = function(key, choice) {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Confirmation',
+      template: 'Pick ' + $scope.choice + '?'
+    });
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log($scope.picks);
+        if ($scope.picks.length == 5) {
+          showError("Sorry, you have already picked 5 games!");
+        }
+        if ($scope.game.date <= new Date().getTime()) {
+          showError("Sorry, that game has already started!");
+        }
+        Picks.savePickForUser(key, choice, $scope.week);
+
+      } else {
+        $state.go('app.games', {
+          week: $scope.week
         });
-		Picks.savePickForUser(key, choice, $scope.week);
-		$ionicLoading.hide();
-		$state.go('app.games', {
-		  week: $scope.week
-		});	
-	}
+      }
+    });
+  };
+
 })
 
 .controller('MyPicksCtrl', function($scope, $stateParams) {

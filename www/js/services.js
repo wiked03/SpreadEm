@@ -38,7 +38,7 @@ angular.module('spreadem.services', ['firebase'])
 		{"id": 13, "startDate" : new Date("2015-11-24").getTime(), "endDate": new Date("2015-12-01").getTime()},
 		{"id": 14, "startDate" : new Date("2015-12-01").getTime(), "endDate": new Date("2015-12-08").getTime()}
 	];
-	
+
 	var displayWeeks = [
 		{"id": 6, "startDate" : "Oct 6, 2015", "endDate": "Oct 12, 2015"},
 		{"id": 7, "startDate" : "Oct 13, 2015", "endDate": "Oct 19, 2015"},
@@ -69,10 +69,10 @@ angular.module('spreadem.services', ['firebase'])
 })
 
 .factory('Games', function ($firebase, $firebaseArray) {
-	
+
 	var games = [];
 	var game;
-	
+
 	return {
 		all: function (week) {
 			var gamesRef = new Firebase(firebaseUrl+'/games/week'+week);
@@ -85,27 +85,24 @@ angular.module('spreadem.services', ['firebase'])
 				game = data.val();
 			});
 			return game;
-		}
     }
+  }
 })
 
-.factory('Picks', ["$firebase", "$rootScope", function ($firebase, $rootScope) {
-	
-	var games = [];
-	var game;
-	
+.factory('Picks', function ($firebase, $rootScope, $firebaseArray) {
+
 	return {
 		savePickForUser: function (key, choice, week) {
-			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/");
-			pickRef.push().set({'home': key, 'pick': choice}, function (error) {
-				if (error) {
-					alert("Data could not be saved!");
-				}
+      var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/"+key);
+			pickRef.update({
+        'pick': choice
 			});
 		},
-		savePickForUser: function (key, choice, week) {
-			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/");
-			pickRef.push().set({'home': key, 'pick': choice});
-		}
+    getUserPicks: function (week) {
+      var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week);
+      var picks = $firebaseArray(pickRef);
+      return picks;
+
     }
-}]);
+  }
+});
