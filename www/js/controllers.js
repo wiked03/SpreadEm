@@ -98,26 +98,27 @@ angular.module('spreadem.controllers', [])
 	$scope.week = $stateParams.week;
 	$scope.games = Games.all($stateParams.week);
 	$scope.picks = Picks.getUserPicks($scope.week);
-  
-//	$scope.$on('$ionicView.enter', function () {
-//		var i;
-//		for(i = 0; i < $scope.picks.length; i++) {
-//			var j;
-//			for(j = 0; j < $scope.games.length; j++) {
-//				if ($scope.picks[i].$id === $scope.games[j].$id) {
-//					$scope.games[j].selected = true;
-//					break;
-//				}
-//				console.log($scope.games[j]);				
-//			}
-//		}
-//  })
-  
+
+	$scope.$on('$ionicView.enter', function () {
+		var i;
+		for(i = 0; i < $scope.picks.length; i++) {
+			var j;
+			for(j = 0; j < $scope.games.length; j++) {
+			if ($scope.picks[i].$id === $scope.games[j].$id) {
+					$scope.games[j].selected = true;
+          console.log($scope.games[j]);
+					break;
+				}
+
+			}
+	}
+  })
+
     $scope.isPicked = function (key) {
 		var i;
 		for(i = 0; i < $scope.picks.length; i++) {
-			console.log($scope.picks[i].$id + " " + key);
 			if ($scope.picks[i].$id === key) {
+        //console.log($scope.picks[i].$id + " " + key);
 				return true;
 			}
 		}

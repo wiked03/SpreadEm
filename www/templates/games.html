@@ -1,7 +1,7 @@
 <ion-view view-title="Games">
   <ion-content>
     <ion-list >
-      <ion-item class="item-icon-right" ng-repeat="game in games" ng-style="{selected: isPicked(game.home)}" ng-click="getGame(game.home, week)">
+      <ion-item class="item-icon-right" ng-repeat="game in games" ng-class="{'selected' : isPicked(game.home)}" ng-click="getGame(game.home, week)">
 		<div class="row">
 			<div class="col">{{game.date}}</div>
 		</div>
