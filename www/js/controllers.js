@@ -187,3 +187,4 @@ angular.module('spreadem.controllers', [])
 	$scope.week = Weeks.getCurrentWeek();
 	$scope.picks = Picks.getUserPicks($scope.week);
 });
+
