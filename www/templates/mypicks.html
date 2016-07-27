@@ -1,5 +1,25 @@
 <ion-view view-title="MyPicks">
+  <ion-header-bar>
+    <h1 class="title">MyPicks</h1>
+    <div class="buttons">
+      <button class="button button-icon icon ion-ios-minus-outline" ng-click="shouldShowDelete = !shouldShowDelete; picks.splice($index, 1)"></button>
+    </div>
+  </ion-header-bar>
   <ion-content>
-    <h1>My Picks</h1>
+    <ion-list show-delete="shouldShowDelete">
+      <ion-item class="item-icon-right" ng-repeat="pick in picks" >
+		<div class="row">
+		<div ng-style="{{employee.tStatus}} === 'Present' ? {  color:'green' } : { color:'red'}"> {{employee.name }}</div>
+			<div class="col" ng-style="{{pick.away}}=== {{pick.pick}} ? {  color:'green' } : { color:'red'}">{{pick.away}}</div>
+			<div class="col">@</div>			
+			<div class="col" ng-style="{{pick.home}}=== {{pick.pick}} ? {  color:'green' } : { color:'red'}">{{pick.home}}</div>
+			<div class="col">Line: {{pick.odds}}</div>
+		</div>
+      </ion-item>
+	  <ion-item ng-hide="picks.length">
+		<div class="row" >
+			<div class="col">No picks for this week</div>
+		</div>
+      </ion-item>
   </ion-content>
 </ion-view>

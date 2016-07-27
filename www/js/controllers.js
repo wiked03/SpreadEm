@@ -116,7 +116,7 @@ angular.module('spreadem.controllers', [])
     $scope.isPicked = function (key) {
 		var i;
 		for(i = 0; i < $scope.picks.length; i++) {
-			console.log($scope.picks[i].$id + " " + key);
+			//console.log($scope.picks[i].$id + " " + key);
 			if ($scope.picks[i].$id === key) {
 				return true;
 			}
@@ -161,15 +161,18 @@ angular.module('spreadem.controllers', [])
 			console.log($scope.choice);
 			if(res) {
 				console.log($scope.picks);
-				if ($scope.picks.length == 5) {
+				if ($scope.picks.length >= 5) {
 					showError("Sorry, you have already picked 5 games!");
-				}
-				if ($scope.game.date <= new Date().toISOString()) {
+				} else if ($scope.game.date <= new Date().toISOString()) {
 					showError("Sorry, that game has already started!");
+				} else {
+					Picks.savePickForUser($scope.week, $scope.game.home, $scope.game.away, $scope.game.odds, $scope.choice);
+					$state.go('app.mypicks', {
+						week: $scope.week
+					});
 				}
-				Picks.savePickForUser($scope.game.home, $scope.choice, $scope.week);
 			} else {
-				$state.go('app.games', {
+				$state.go('app.mypicks', {
 					week: $scope.week
 				});
 			}
@@ -178,5 +181,9 @@ angular.module('spreadem.controllers', [])
 
 })
 
-.controller('MyPicksCtrl', function($scope, $stateParams) {
+.controller('MyPicksCtrl', function($scope, $stateParams, Picks, Weeks, Games) {
+	console.log("in MyPicksCtrl");
+	$scope.shouldShowDelete = false;
+	$scope.week = Weeks.getCurrentWeek();
+	$scope.picks = Picks.getUserPicks($scope.week);
 });

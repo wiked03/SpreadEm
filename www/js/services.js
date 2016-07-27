@@ -26,27 +26,39 @@ angular.module('spreadem.services', ['firebase'])
 .factory('Weeks', function ($firebase) {
 
 	var weeks = [
-		{"id": 6, "startDate" : new Date("2015-10-06").getTime(), "endDate": new Date("2015-10-13").getTime()},
-		{"id": 7, "startDate" : new Date("2015-10-13").getTime(), "endDate": new Date("2015-10-20").getTime()},
-		{"id": 8, "startDate" : new Date("2015-10-20").getTime(), "endDate": new Date("2015-10-27").getTime()},
-		{"id": 9, "startDate" : new Date("2015-10-27").getTime(), "endDate": new Date("2015-11-03").getTime()},
-		{"id": 10, "startDate" : new Date("2015-11-03").getTime(), "endDate": new Date("2015-11-10").getTime()},
-		{"id": 11, "startDate" : new Date("2015-11-10").getTime(), "endDate": new Date("2015-11-17").getTime()},
-		{"id": 12, "startDate" : new Date("2015-11-17").getTime(), "endDate": new Date("2015-11-24").getTime()},
-		{"id": 13, "startDate" : new Date("2015-11-24").getTime(), "endDate": new Date("2015-12-01").getTime()},
-		{"id": 14, "startDate" : new Date("2015-12-01").getTime(), "endDate": new Date("2015-12-08").getTime()}
+		{"id": 1, "startDate" : new Date("2016-08-26").getTime(), "endDate": new Date("2016-09-05").getTime()},
+		{"id": 2, "startDate" : new Date("2016-09-06").getTime(), "endDate": new Date("2016-09-12").getTime()},
+		{"id": 3, "startDate" : new Date("2016-09-13").getTime(), "endDate": new Date("2016-09-19").getTime()},
+		{"id": 4, "startDate" : new Date("2016-09-20").getTime(), "endDate": new Date("2016-09-26").getTime()},
+		{"id": 5, "startDate" : new Date("2016-09-27").getTime(), "endDate": new Date("2016-10-03").getTime()},
+		{"id": 6, "startDate" : new Date("2016-10-04").getTime(), "endDate": new Date("2016-10-10").getTime()},
+		{"id": 7, "startDate" : new Date("2016-10-11").getTime(), "endDate": new Date("2016-10-17").getTime()},
+		{"id": 8, "startDate" : new Date("2016-10-18").getTime(), "endDate": new Date("2016-10-24").getTime()},
+		{"id": 9, "startDate" : new Date("2016-10-25").getTime(), "endDate": new Date("2016-10-31").getTime()},
+		{"id": 10, "startDate" : new Date("2016-11-01").getTime(), "endDate": new Date("2016-11-07").getTime()},
+		{"id": 11, "startDate" : new Date("2016-11-08").getTime(), "endDate": new Date("2016-11-14").getTime()},
+		{"id": 12, "startDate" : new Date("2016-11-15").getTime(), "endDate": new Date("2016-11-21").getTime()},
+		{"id": 13, "startDate" : new Date("2016-11-22").getTime(), "endDate": new Date("2016-11-28").getTime()},
+		{"id": 14, "startDate" : new Date("2016-11-29").getTime(), "endDate": new Date("2016-12-05").getTime()},
+		{"id": 15, "startDate" : new Date("2016-12-06").getTime(), "endDate": new Date("2016-12-12").getTime()}
 	];
 
 	var displayWeeks = [
-		{"id": 6, "startDate" : "Oct 6, 2015", "endDate": "Oct 12, 2015"},
-		{"id": 7, "startDate" : "Oct 13, 2015", "endDate": "Oct 19, 2015"},
-		{"id": 8, "startDate" : "Oct 20, 2015", "endDate": "Oct 26, 2015"},
-		{"id": 9, "startDate" : "Oct 27, 2015", "endDate": "Nov 2, 2015"},
-		{"id": 10, "startDate" : "Nov 3, 2015", "endDate": "Nov 9, 2015"},
-		{"id": 11, "startDate" : "Nov 10, 2015", "endDate": "Nov 16, 2015"},
-		{"id": 12, "startDate" : "Nov 17, 2015", "endDate": "Nov 22, 2015"},
-		{"id": 13, "startDate" : "Nov 24, 2015", "endDate": "Nov 30, 2015"},
-		{"id": 14, "startDate" : "Dec 1, 2015", "endDate": "Dec 7, 2015"}
+		{"id": 1, "startDate" : "2016-08-26", "endDate": "2016-09-05"},
+		{"id": 2, "startDate" : "2016-09-06", "endDate": "2016-09-12"},
+		{"id": 3, "startDate" : "2016-09-13", "endDate": "2016-09-19"},
+		{"id": 4, "startDate" : "2016-09-20", "endDate": "2016-09-26"},
+		{"id": 5, "startDate" : "2016-09-27", "endDate": "2016-10-03"},
+		{"id": 6, "startDate" : "2016-10-04", "endDate": "2016-10-10"},
+		{"id": 7, "startDate" : "2016-10-11", "endDate": "2016-10-17"},
+		{"id": 8, "startDate" : "2016-10-18", "endDate": "2016-10-24"},
+		{"id": 9, "startDate" : "2016-10-25", "endDate": "2016-10-31"},
+		{"id": 10, "startDate" : "2016-11-01", "endDate": "2016-11-07"},
+		{"id": 11, "startDate" : "2016-11-08", "endDate": "2016-11-14"},
+		{"id": 12, "startDate" : "2016-11-15", "endDate": "2016-11-21"},
+		{"id": 13, "startDate" : "2016-11-22", "endDate": "2016-11-28"},
+		{"id": 14, "startDate" : "2016-11-29", "endDate": "2016-12-05"},
+		{"id": 15, "startDate" : "2016-12-06", "endDate": "2016-12-12"}
 	];
 
     return {
@@ -89,15 +101,19 @@ angular.module('spreadem.services', ['firebase'])
 .factory('Picks', function ($firebase, $rootScope, $firebaseArray) {
 
 	return {
-		savePickForUser: function (key, choice, week) {
-			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/"+key);
+		savePickForUser: function (week, home, away, odds, choice) {
+			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week+"/"+home);
 			pickRef.update({
+				'home': home,
+				'away': away,
+				'odds': odds,
 				'pick': choice
 			});
 		},
 		getUserPicks: function (week) {
 			var pickRef = new Firebase(firebaseUrl+"/users/"+$rootScope.uid+"/week"+week);
 			var picks = $firebaseArray(pickRef);
+			//console.log(picks);
 			return picks;
 		}
 	}
